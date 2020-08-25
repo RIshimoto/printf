@@ -6,13 +6,13 @@
 /*   By: rishimot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 00:42:42 by rishimot          #+#    #+#             */
-/*   Updated: 2020/08/25 23:34:46 by rishimot         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:46:34 by rishimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		keta_to_xx(long long ui, int xx)
+int				keta_to_xx(long long ui, int xx)
 {
 	int	cnt;
 
@@ -25,7 +25,7 @@ int		keta_to_xx(long long ui, int xx)
 	return (cnt);
 }
 
-void		dic_to_xx(long long ui, char *base, int xx, t_flags *fmt_info)
+void			dic_to_xx(long long ui, char *base, int xx, t_flags *fmt_info)
 {
 	if (ui < xx)
 	{

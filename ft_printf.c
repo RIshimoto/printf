@@ -6,7 +6,7 @@
 /*   By: rishimot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 21:08:05 by rishimot          #+#    #+#             */
-/*   Updated: 2020/08/25 23:40:13 by rishimot         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:45:49 by rishimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int			ft_printf(const char *format, ...)
 			if (*fmt == '\0' || spec(&fmt, &fmt_info, &ap) == ERROR)
 			{
 				fmt_info.result = -1;
-				break;
+				break ;
 			}
 		}
 		else

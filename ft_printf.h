@@ -6,7 +6,7 @@
 /*   By: rishimot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 08:48:30 by rishimot          #+#    #+#             */
-/*   Updated: 2020/08/25 23:34:58 by rishimot         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:45:31 by rishimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void			ft_putstr(t_flags *fmt_info, char *str, int len);
 void			fmt_init(t_flags *fmt_info, int len);
 void			ft_putchar_n(char c, t_flags *fmt_info);
 void			output(char c, int len, t_flags *fmt_info);
+void			dic_to_xx(long long ui, char *base, int xx, t_flags *fmt_info);
 int				keta_to_xx(long long ui, int xx);
-void		dic_to_xx(long long ui, char *base, int xx, t_flags *fmt_info);
 int				max(int a, int b);
 int				min(int a, int b);
 
