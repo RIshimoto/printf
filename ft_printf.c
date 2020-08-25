@@ -6,7 +6,7 @@
 /*   By: rishimot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 21:08:05 by rishimot          #+#    #+#             */
-/*   Updated: 2020/08/25 23:27:19 by rishimot         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:28:36 by rishimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int			ft_printf(const char *format, ...)
 
 	va_start(ap, format);
 	fmt = (char *)format;
-	(*fmt_info).result = 0;
+	fmt_info.result = 0;
 	while (*fmt != '\0')
 	{
 		if (*fmt == '%')
@@ -123,7 +123,7 @@ int			ft_printf(const char *format, ...)
 			fmt++;
 			if (*fmt == '\0' || spec(&fmt, &fmt_info, &ap) == ERROR)
 			{
-				fmt_info->result = -1;
+				fmt_info.result = -1;
 				break;
 			}
 		}
@@ -132,5 +132,5 @@ int			ft_printf(const char *format, ...)
 		fmt++;
 	}
 	va_end(ap);
-	return (result);
+	return (fmt_info.result);
 }
