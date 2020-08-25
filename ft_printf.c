@@ -6,7 +6,7 @@
 /*   By: rishimot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 21:08:05 by rishimot          #+#    #+#             */
-/*   Updated: 2020/08/25 23:37:43 by rishimot         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:40:13 by rishimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,6 @@ static int	spec(char **format, t_flags *fmt_info, va_list *ap)
 		(*fmt_info).len = field_precise(format, ap, 0);
 		if ((*fmt_info).len < 0)
 			(*fmt_info).len = INIT_PRECISE;
-		//else if ((*fmt_info).flag == ZERO)
-		//	(*fmt_info).flag = RIGHT;
 	}
 	if (**format == '\0')
 		return (ERROR);
