@@ -6,7 +6,7 @@
 /*   By: rishimot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 08:48:30 by rishimot          #+#    #+#             */
-/*   Updated: 2020/08/25 23:20:11 by rishimot         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:34:58 by rishimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define FAIL -1
 # define ERROR -1
 # define LEFT 0
-# define RIGHT 1
+# define NON 1
 # define ZERO 2
 
 typedef	struct	s_fomat_information

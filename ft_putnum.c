@@ -6,7 +6,7 @@
 /*   By: rishimot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 00:42:42 by rishimot          #+#    #+#             */
-/*   Updated: 2020/08/25 23:23:50 by rishimot         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:34:46 by rishimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void			ft_putnum(t_flags *fmt_info, long long num, char *base)
 	if (num < 0)
 		cnt.minus = -1;
 	num *= cnt.minus;
+	if ((*fmt_info).len != INIT_PRECISE && (*fmt_info).flag == ZERO)
+		(*fmt_info).flag = NON;
 	num_len = keta_to_xx(num, ft_strlen(base));
 	if (num == 0 && (*fmt_info).len == 0)
 		num_len = 0;

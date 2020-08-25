@@ -6,7 +6,7 @@
 /*   By: rishimot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 21:08:05 by rishimot          #+#    #+#             */
-/*   Updated: 2020/08/25 23:28:36 by rishimot         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:37:43 by rishimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	get_flag(char **format)
 		return (LEFT);
 	if (zero)
 		return (ZERO);
-	return (RIGHT);
+	return (NON);
 }
 
 static int	field_precise(char **format, va_list *ap, int init)
