@@ -6,7 +6,7 @@
 /*   By: rishimot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 21:08:05 by rishimot          #+#    #+#             */
-/*   Updated: 2020/08/25 23:05:16 by rishimot         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:27:19 by rishimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,18 +112,20 @@ int			ft_printf(const char *format, ...)
 	va_list	ap;
 	t_flags	fmt_info;
 	char	*fmt;
-	int		result;
 
 	va_start(ap, format);
 	fmt = (char *)format;
-	result = 0;
+	(*fmt_info).result = 0;
 	while (*fmt != '\0')
 	{
 		if (*fmt == '%')
 		{
 			fmt++;
 			if (*fmt == '\0' || spec(&fmt, &fmt_info, &ap) == ERROR)
-				return (ERROR);
+			{
+				fmt_info->result = -1;
+				break;
+			}
 		}
 		else
 			ft_putchar_n(*fmt, &fmt_info);

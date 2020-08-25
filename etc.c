@@ -6,7 +6,7 @@
 /*   By: rishimot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 14:16:13 by rishimot          #+#    #+#             */
-/*   Updated: 2020/08/25 23:02:27 by rishimot         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:26:30 by rishimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		min(int a, int b)
 void	ft_putchar_n(char c, t_flags *fmt_info)
 {
 	ft_putchar_fd(c, 1);
-	fmt_info->result++;
+	(*fmt_info).result++;
 }
 
 void	output(char c, int len, t_flags *fmt_info)
