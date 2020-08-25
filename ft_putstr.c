@@ -6,13 +6,13 @@
 /*   By: rishimot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 00:43:49 by rishimot          #+#    #+#             */
-/*   Updated: 2020/08/24 19:45:58 by rishimot         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:01:52 by rishimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putstr(t_flags *fmt_info, char *str, int len, int *result)
+void	ft_putstr(t_flags *fmt_info, char *str, int len)
 {
 	char	c;
 	int		i;
@@ -33,15 +33,8 @@ void	ft_putstr(t_flags *fmt_info, char *str, int len, int *result)
 	while (++i < width)
 	{
 		if (insert_index <= i && i < insert_index + len)
-			ft_putchar_fd(str[j++], 1);
+			ft_putchar_n(str[j++], fmt_info);
 		else
-			ft_putchar_fd(c, 1);
+			ft_putchar_n(c, fmt_info);
 	}
-	*result += width;
-}
-
-void	fmt_init(t_flags *fmt_info, int len)
-{
-	if ((*fmt_info).len == INIT_PRECISE)
-		(*fmt_info).len = len;
 }

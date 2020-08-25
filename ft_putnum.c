@@ -6,13 +6,13 @@
 /*   By: rishimot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 00:42:42 by rishimot          #+#    #+#             */
-/*   Updated: 2020/08/25 22:48:27 by rishimot         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:23:50 by rishimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int		keta_to_xx(long long ui, int xx)
+int		keta_to_xx(long long ui, int xx)
 {
 	int	cnt;
 
@@ -25,15 +25,15 @@ static int		keta_to_xx(long long ui, int xx)
 	return (cnt);
 }
 
-static void		dic_to_xx(long long ui, char *base, int xx)
+void		dic_to_xx(long long ui, char *base, int xx, t_flags *fmt_info)
 {
 	if (ui < xx)
 	{
-		ft_putchar_fd(base[ui], 1);
+		ft_putchar_n(base[ui], fmt_info);
 		return ;
 	}
-	dic_to_xx(ui / xx, base, xx);
-	dic_to_xx(ui % xx, base, xx);
+	dic_to_xx(ui / xx, base, xx, fmt_info);
+	dic_to_xx(ui % xx, base, xx, fmt_info);
 }
 
 static void		ft_putnum_out(t_flags *fmt_info, t_cnts cnt,\
@@ -45,18 +45,17 @@ static void		ft_putnum_out(t_flags *fmt_info, t_cnts cnt,\
 		cnt.blank = 0;
 	}
 	if ((*fmt_info).flag != LEFT)
-		output(' ', cnt.blank);
+		output(' ', cnt.blank, fmt_info);
 	if (cnt.minus == -1)
-		ft_putstr_fd("-", 1);
-	output('0', cnt.zero);
+		ft_putchar_n('-', fmt_info);
+	output('0', cnt.zero, fmt_info);
 	if (!(num == 0 && (*fmt_info).len == 0))
-		dic_to_xx(num, base, ft_strlen(base));
+		dic_to_xx(num, base, ft_strlen(base), fmt_info);
 	if ((*fmt_info).flag == LEFT)
-		output(' ', cnt.blank);
+		output(' ', cnt.blank, fmt_info);
 }
 
-void			ft_putnum(t_flags *fmt_info, long long num,\
-												char *base, int *result)
+void			ft_putnum(t_flags *fmt_info, long long num, char *base)
 {
 	t_cnts	cnt;
 	int		num_len;
@@ -76,7 +75,4 @@ void			ft_putnum(t_flags *fmt_info, long long num,\
 		len++;
 	cnt.blank = max(0, (*fmt_info).width - len);
 	ft_putnum_out(fmt_info, cnt, num, base);
-	*result += cnt.blank + cnt.zero + num_len;
-	if (cnt.minus == -1)
-		(*result)++;
 }

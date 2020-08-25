@@ -6,35 +6,11 @@
 /*   By: rishimot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 20:04:20 by rishimot          #+#    #+#             */
-/*   Updated: 2020/08/24 21:52:20 by rishimot         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:21:00 by rishimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static int	keta_to_hex(long long ui)
-{
-	int	cnt;
-
-	cnt = 1;
-	while (ui / 16 != 0)
-	{
-		ui /= 16;
-		cnt++;
-	}
-	return (cnt);
-}
-
-static void	dic_to_hex(long long ui, char *base)
-{
-	if (ui < 16)
-	{
-		ft_putchar_fd(base[ui], 1);
-		return ;
-	}
-	dic_to_hex(ui / 16, base);
-	dic_to_hex(ui % 16, base);
-}
 
 static void	ft_putnum_out(t_flags *fmt_info, long long num, t_cnts cnt)
 {
@@ -44,22 +20,23 @@ static void	ft_putnum_out(t_flags *fmt_info, long long num, t_cnts cnt)
 		cnt.blank = 0;
 	}
 	if ((*fmt_info).flag != LEFT)
-		output(' ', cnt.blank);
-	ft_putstr_fd("0x", 1);
-	output('0', cnt.zero);
+		output(' ', cnt.blank, fmt_info);
+	ft_putchar_n('0', fmt_info);
+	ft_putchar_n('x', fmt_info);
+	output('0', cnt.zero, fmt_info);
 	if (!(num == 0 && (*fmt_info).len == 0))
-		dic_to_hex(num, "0123456789abcdef");
+		dic_to_xx(num, "0123456789abcdef", 16, fmt_info);
 	if ((*fmt_info).flag == LEFT)
-		output(' ', cnt.blank);
+		output(' ', cnt.blank, fmt_info);
 }
 
-static void	ft_putnum_p(t_flags *fmt_info, unsigned long num, int *result)
+static void	ft_putnum_p(t_flags *fmt_info, unsigned long num)
 {
 	t_cnts	cnt;
 	int		num_len;
 	int		len;
 
-	num_len = keta_to_hex(num);
+	num_len = keta_to_xx(num, 16);
 	if (num == 0 && (*fmt_info).len == 0)
 		num_len = 0;
 	fmt_init(fmt_info, num_len);
@@ -68,10 +45,9 @@ static void	ft_putnum_p(t_flags *fmt_info, unsigned long num, int *result)
 	len += 2;
 	cnt.blank = max(0, (*fmt_info).width - len);
 	ft_putnum_out(fmt_info, num, cnt);
-	*result += cnt.blank + cnt.zero + num_len + 2;
 }
 
-void		process_p(t_flags *fmt_info, va_list *ap, int *result)
+void		process_p(t_flags *fmt_info, va_list *ap)
 {
 	unsigned long	num;
 	void			*str;
@@ -81,8 +57,8 @@ void		process_p(t_flags *fmt_info, va_list *ap, int *result)
 	if (num == 0 && (*fmt_info).len == INIT_PRECISE)
 	{
 		fmt_init(fmt_info, 3);
-		ft_putstr(fmt_info, "0x0", 3, result);
+		ft_putstr(fmt_info, "0x0", 3);
 	}
 	else
-		ft_putnum_p(fmt_info, num, result);
+		ft_putnum_p(fmt_info, num);
 }

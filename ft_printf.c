@@ -6,7 +6,7 @@
 /*   By: rishimot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 21:08:05 by rishimot          #+#    #+#             */
-/*   Updated: 2020/08/25 22:42:21 by rishimot         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:05:16 by rishimot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,32 +56,31 @@ static int	field_precise(char **format, va_list *ap, int init)
 	return (result);
 }
 
-static void	is_type(char **format, va_list *ap, t_flags *fmt_info, int *result)
+static void	is_type(char **format, va_list *ap, t_flags *fmt_info)
 {
 	if (**format == 'c')
-		process_c(fmt_info, ap, result);
+		process_c(fmt_info, ap);
 	else if (**format == 's')
-		process_s(fmt_info, ap, result);
+		process_s(fmt_info, ap);
 	else if (**format == 'p')
-		process_p(fmt_info, ap, result);
+		process_p(fmt_info, ap);
 	else if (**format == 'd' || **format == 'i')
-		process_di(fmt_info, ap, result);
+		process_di(fmt_info, ap);
 	else if (**format == 'u')
-		process_u(fmt_info, ap, result);
+		process_u(fmt_info, ap);
 	else if (**format == 'x')
-		process_x(fmt_info, ap, result);
+		process_x(fmt_info, ap);
 	else if (**format == 'X')
-		process_large_x(fmt_info, ap, result);
+		process_large_x(fmt_info, ap);
 	else if (**format == '%')
-		process_per(fmt_info, result);
+		process_per(fmt_info);
 }
 
-static int	spec(char **format, t_flags *fmt_info,\
-											va_list *ap, int *result)
+static int	spec(char **format, t_flags *fmt_info, va_list *ap)
 {
 	(*fmt_info).flag = get_flag(format);
 	if (**format == '\0')
-		return (ERR);
+		return (ERROR);
 	(*fmt_info).width = field_precise(format, ap, INIT_FIELD);
 	if ((*fmt_info).width < 0)
 	{
@@ -89,13 +88,13 @@ static int	spec(char **format, t_flags *fmt_info,\
 		(*fmt_info).flag = LEFT;
 	}
 	if (**format == '\0')
-		return (ERR);
+		return (ERROR);
 	(*fmt_info).len = INIT_PRECISE;
 	if (**format == '.')
 	{
 		(*format)++;
 		if (**format == '\0')
-			return (ERR);
+			return (ERROR);
 		(*fmt_info).len = field_precise(format, ap, 0);
 		if ((*fmt_info).len < 0)
 			(*fmt_info).len = INIT_PRECISE;
@@ -103,8 +102,8 @@ static int	spec(char **format, t_flags *fmt_info,\
 		//	(*fmt_info).flag = RIGHT;
 	}
 	if (**format == '\0')
-		return (ERR);
-	is_type(format, ap, fmt_info, result);
+		return (ERROR);
+	is_type(format, ap, fmt_info);
 	return (SUCESS);
 }
 
@@ -123,14 +122,11 @@ int			ft_printf(const char *format, ...)
 		if (*fmt == '%')
 		{
 			fmt++;
-			if (*fmt == '\0' || spec(&fmt, &fmt_info, &ap, &result) == ERR)
-				return (ERR);
+			if (*fmt == '\0' || spec(&fmt, &fmt_info, &ap) == ERROR)
+				return (ERROR);
 		}
 		else
-		{
-			ft_putchar_fd(*fmt, 1);
-			result++;
-		}
+			ft_putchar_n(*fmt, &fmt_info);
 		fmt++;
 	}
 	va_end(ap);
