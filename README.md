@@ -13,3 +13,11 @@ cspdiuxX%
 
 ### 使用した関数
 malloc, free, write, va_start, va_arg, va_copy, va_end
+
+## 実行
+```
+$ git clone https://github.com/RIshimoto/printf
+$ cd printf
+$ make all
+$ ./printf
+```
